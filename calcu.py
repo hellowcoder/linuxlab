@@ -10,67 +10,80 @@ def multiply(i, j):
 def divide(i, j):
     if j == 0:
         print("Error: Division by zero is not allowed.")
-        return None  # Return None to indicate an error
+        return None
     return i / j
 
 def power(base, exponent):
-    if base == 0 and exponent == 0:
-        print("Error: 0^0 is undefined.")
-        return None  # Return None to indicate an error
-    result = 1
-    for _ in range(abs(exponent)):
-        result *= base
-    if exponent < 0:
-        return 1 / result  # Handle negative exponent
-    return result
+    return base ** exponent
 
 def inverse(i):
     if i == 0:
         print("Error: Inverse of zero is undefined.")
-        return None  # Return None to indicate an error
+        return None
     return 1 / i
 
+def get_number_input(prompt, num_type=float):
+    while True:
+        try:
+            return num_type(input(prompt))
+        except ValueError:
+            print("Invalid input. Please enter a valid number.")
+
 def main():
-    confirm = 'n'
-    while confirm.lower() == 'y':
-        print("\nChoose an operation (+, -, *, /, ^):")
+    print("Welcome to the Advanced Calculator!")
+    
+    while True:
+        print("\nChoose an operation:")
         print("+: Addition")
         print("-: Subtraction")
         print("*: Multiplication")
         print("/: Division")
-        print("^: Power of a number (base ^ exponent)")
-        print("i: Inverse of a number")
+        print("^: Exponentiation")
+        print("i: Inverse (1/x)")
         
-        operation = input("Enter operation: ")
+        operation = input("Enter operation: ").strip()
 
         if operation == '+':
-            a, b = map(int, input("Enter two integers: ").split())
+            a = get_number_input("Enter first number: ")
+            b = get_number_input("Enter second number: ")
             print(f"The result of {a} + {b} is {add(a, b)}")
+        
         elif operation == '-':
-            a, b = map(int, input("Enter two integers: ").split())
+            a = get_number_input("Enter first number: ")
+            b = get_number_input("Enter second number: ")
             print(f"The result of {a} - {b} is {subtract(a, b)}")
+        
         elif operation == '*':
-            a, b = map(int, input("Enter two integers: ").split())
+            a = get_number_input("Enter first number: ")
+            b = get_number_input("Enter second number: ")
             print(f"The result of {a} * {b} is {multiply(a, b)}")
+        
         elif operation == '/':
-            a, b = map(float, input("Enter two numbers (float values allowed): ").split())
+            a = get_number_input("Enter numerator: ")
+            b = get_number_input("Enter denominator: ")
             result = divide(a, b)
             if result is not None:
-                print(f"The result of {a} / {b} is {result:.2f}")
+                print(f"The result of {a} / {b} is {result:.5f}")
+        
         elif operation == '^':
-            a, b = map(int, input("Enter base and exponent: ").split())
-            result = power(a, b)
-            if result is not None:
-                print(f"The result of {a} ^ {b} is {result}")
+            a = get_number_input("Enter base: ")
+            b = int(input("Enter exponent (integer): "))
+            print(f"The result of {a} ^ {b} is {power(a, b)}")
+        
         elif operation == 'i':
-            a = int(input("Enter an integer: "))
+            a = get_number_input("Enter a number for inverse: ")
             result = inverse(a)
             if result is not None:
-                print(f"The result of 1/{a} is {result:.2f}")
+                print(f"The result of 1/{a} is {result:.5f}")
+        
         else:
             print("Invalid operation. Please try again.")
-
-        confirm = input("Do you want to perform another operation [y/N]? ")
+            continue
+        
+        confirm = input("\nDo you want to perform another operation [y/N]? ").lower()
+        if confirm != 'y':
+            print("Thank you for using the Advanced Calculator! Goodbye.")
+            break
 
 if __name__ == "__main__":
     main()
