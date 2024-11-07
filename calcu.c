@@ -19,16 +19,17 @@ float divide(int i, int j) {
     }
     return ((float) i / j);  // Explicit type casting to float for decimal results.
 }
-int square(int i){
-return (i*i);
+
+int power(int base, int exponent) {
+    int result = 1;
+    for (int i = 0; i < exponent; i++) {
+        result *= base;
+    }
+    return result;
 }
 
-int cube (int i){
-return (i*i*i);
-}
-
-float inverse(int i){
-return (1/(float)i);
+float inverse(int i) {
+    return (1 / (float)i);
 }
 
 int main() {
@@ -37,13 +38,12 @@ int main() {
     char confirm = 'n';
 
     do {
-        printf("\nChoose an operation (+, -, *, /, ^, #, i):\n");
+        printf("\nChoose an operation (+, -, *, /, ^):\n");
         printf("+: Addition\n");
         printf("-: Subtraction\n");
         printf("*: Multiplication\n");
         printf("/: Division\n");
-        printf("^: Square of a number\n");
-        printf("#: Cube of a number\n");
+        printf("^: Power of a number (base ^ exponent)\n");
         printf("i: Inverse of a number\n");
         
         printf("Enter operation: ");
@@ -73,19 +73,14 @@ int main() {
                 }
                 break;
             case '^':
-                printf("Enter an integer: ");
-                scanf("%d", &a);
-                printf("The result of %d ^2 is %d \n",a,square(a));
-                break;
-            case '#':
-                printf("Enter an integer: ");
-                scanf("%d", &a);
-                printf("The result of %d ^3 is %d \n",a,cube(a)");
+                printf("Enter base and exponent: ");
+                scanf("%d %d", &a, &b);
+                printf("The result of %d ^ %d is %d\n", a, b, power(a, b));
                 break;
             case 'i':
                 printf("Enter an integer: ");
                 scanf("%d", &a);
-                printf("The result of 1/ %d is %.2f \n",a,inverse(a));
+                printf("The result of 1/ %d is %.2f\n", a, inverse(a));
                 break;
             default:
                 printf("Invalid operation. Please try again.\n");
@@ -97,4 +92,3 @@ int main() {
 
     return 0;
 }
-
